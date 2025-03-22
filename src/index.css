@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Exo+2:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-primary-text;
+  }
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .glassmorphism {
+    @apply bg-background-light/30 backdrop-blur-md border border-neon-cyan/20;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple font-medium text-primary-text rounded-md transition-all duration-300 hover:shadow-neon-cyan hover:scale-105;
+  }
+  
+  .btn-outline {
+    @apply px-6 py-3 border border-neon-cyan text-neon-cyan font-medium rounded-md transition-all duration-300 hover:bg-neon-cyan/10 hover:shadow-neon-cyan hover:scale-105;
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-3d-front {
+    transform: rotateY(0deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .transform-3d-back {
+    transform: rotateY(180deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
