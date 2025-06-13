@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import HeroBackground from "./HeroBackground";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { personalInfo } from "../data/portfolioData";
-import TerminalTypewriter from "./TerminalTypewriter";
 import { Link } from "react-router-dom";
 import { FaChevronDown, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
