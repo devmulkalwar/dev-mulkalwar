@@ -45,118 +45,129 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative">
-      <HeroBackground />
+    <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      {/* Background layers */}
+      <div className="absolute inset-0 z-0">
+        <HeroBackground />
+      </div>
+      
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background pointer-events-none"></div>
-
-      <motion.div
-        style={{ opacity, scale }}
-        className="container mx-auto px-4 z-10 relative"
-      >
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="glitch-wrapper mb-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div
-              className="glitch text-sm font-mono text-neon-cyan/80"
-              data-text="DEVELOPER · PROBLEM SOLVER · CREATOR"
+      {/* Main content */}
+      <div className="relative z-20 w-full px-4 py-12 flex items-start justify-center">
+        <motion.div style={{ opacity, scale }} className="w-full max-w-4xl mx-auto">
+          <div className="space-y-6 text-left">
+            {/* Glitch text */}
+            <motion.div
+              className="glitch-wrapper"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              DEVELOPER · PROBLEM SOLVER · STUDENT
-            </div>
-          </motion.div>
+              <div className="glitch text-xs sm:text-sm font-mono text-neon-cyan/80"
+                  data-text="DEVELOPER · PROBLEM SOLVER · CREATOR">
+                DEVELOPER · PROBLEM SOLVER · STUDENT
+              </div>
+            </motion.div>
 
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-4 relative"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-cyan via-white to-neon-purple">
-              {personalInfo.fullName}
-            </span>
-          </motion.h1>
-
-          <motion.div
-            className="text-xl md:text-2xl mb-8 h-18"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <TerminalTypeWriter
-              text={personalInfo.tagline}
-              speed={30}
-              className="text-secondary-text "
-            />
-          </motion.div>
-
-          <motion.div
-            className="flex flex-wrap gap-4 mt-8 mb-8 "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <Link to="/projects">
-              <button className="px-6 py-3 bg-neon-cyan text-background font-medium rounded-md hover:bg-neon-purple transition-colors duration-300 flex items-center gap-2">
-                <span>Explore My Work</span>
-                <span className="w-5 h-5 rounded-full bg-background text-neon-cyan flex items-center justify-center text-sm">
-                  →
-                </span>
-              </button>
-            </Link>
-            <Link to="/contact">
-              <button className="px-6 py-3 border border-neon-cyan text-neon-cyan font-medium rounded-md hover:bg-neon-cyan/10 transition-colors duration-300">
-                Get In Touch
-              </button>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            className="flex gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <a
-              href={personalInfo.socialLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
+            {/* Name */}
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold relative"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <FaGithub />
-            </a>
-            <a
-              href={personalInfo.socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href={personalInfo.socialLinks.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
-            >
-              <FaTwitter />
-            </a>
-          </motion.div>
-        </div>
-      </motion.div>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neon-cyan via-white to-neon-purple">
+                {personalInfo.fullName}
+              </span>
+            </motion.h1>
 
-      {/* Scroll down icon with conditional rendering based on scroll position */}
+            {/* Typewriter */}
+            <motion.div
+              className="text-lg sm:text-xl md:text-2xl min-h-[4rem]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <TerminalTypeWriter
+                text={personalInfo.tagline}
+                speed={30}
+                className="text-secondary-text"
+              />
+            </motion.div>
+
+            {/* Buttons */}
+            <motion.div
+              className="flex flex-col sm:flex-row items-start gap-4 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Link to="/projects" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto px-6 py-3 bg-neon-cyan text-background font-medium rounded-md hover:bg-neon-purple transition-colors duration-300 flex items-center justify-center gap-2">
+                  <span>Explore My Work</span>
+                  <span className="w-5 h-5 rounded-full bg-background text-neon-cyan flex items-center justify-center text-sm">
+                    →
+                  </span>
+                </button>
+              </Link>
+              <Link to="/contact" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto px-6 py-3 border border-neon-cyan text-neon-cyan font-medium rounded-md hover:bg-neon-cyan/10 transition-colors duration-300">
+                  Get In Touch
+                </button>
+              </Link>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              className="flex gap-4 pt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <a
+                href={personalInfo.socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href={personalInfo.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href={personalInfo.socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-neon-cyan/50 flex items-center justify-center text-neon-cyan hover:bg-neon-cyan hover:text-background transition-all duration-300"
+              >
+                <FaTwitter />
+              </a>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
       {!isScrolledPastHero && (
         <motion.div
-          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 text-neon-cyan cursor-pointer"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
           onClick={handleScrollDown}
         >
-          <FaChevronDown className="text-2xl" />
+          <button 
+            className="p-3 rounded-full bg-background/50 backdrop-blur-sm border border-neon-cyan/30 
+                     hover:bg-background/80 transition-all cursor-pointer group"
+          >
+            <FaChevronDown className="text-2xl text-neon-cyan group-hover:scale-110 transition-transform" />
+          </button>
         </motion.div>
       )}
     </section>

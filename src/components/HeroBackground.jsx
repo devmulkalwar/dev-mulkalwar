@@ -5,8 +5,11 @@ import { Bloom } from '@react-three/postprocessing';
 import HexGrid from './HexGrid';
 const HeroBackground = () => {
   return (
-    <div className="absolute inset-0 z-0">
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 45 }}>
+    <div className="absolute inset-0">
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        style={{ position: 'absolute', width: '100%', height: '100%' }}
+      >
         <Suspense fallback={null}>
           <HexGrid />
           <ambientLight intensity={0.2} />
@@ -25,4 +28,4 @@ const HeroBackground = () => {
   );
 };
 
-export default HeroBackground
+export default HeroBackground;

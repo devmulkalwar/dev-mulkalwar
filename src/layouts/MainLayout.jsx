@@ -23,10 +23,9 @@ const MainLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-primary-text font-poppins">
-   
       <Navbar/>
       {/* Main Content */}
-      <main className="flex-grow flex flex-col items-center justify-center relative z-10">
+      <main className="flex-grow relative z-10">
       
           {children}
       

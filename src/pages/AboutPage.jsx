@@ -1,27 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FiBookOpen,
-  FiAward,
-  FiUser,
-  FiCode,
-  FiMail,
-  FiGlobe,
-  FiGithub,
-  FiLinkedin,
-  FiTwitter,
-  FiInstagram,
-} from "react-icons/fi";
-import { FiDatabase } from "react-icons/fi";
+import { FiUser, FiMail, FiCode, FiGithub, FiLinkedin, FiInstagram, FiTwitter, FiAward, FiGlobe ,FiDatabase } from "react-icons/fi";
 import { FaGraduationCap } from "react-icons/fa";
 import { personalInfo, skills } from "../data/portfolioData.jsx";
-import { lazy, Suspense } from "react";
-import HeroBackground from "../components/HeroBackground.jsx";
-
-import * as Icons from "react-icons/fi";
-const ParticleBackground = lazy(() =>
-  import("../components/ParticleBackground")
-);
 
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState("languages");
@@ -265,170 +246,179 @@ const AboutPage = () => {
   };
 
   return (
-    <div className="min-h-screen max-w-7xl bg-background text-primary-text">
-      {/* Animated Background */}
-      <div className="fixed inset-0 z-0 opacity-30">
-        <HeroBackground />
+    <div className="min-h-screen bg-background text-primary-text">
+      {/* Background elements */}
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-background/90" />
+      
+      <div className="fixed inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 -translate-x-1/2 -translate-y-1/2 bg-neon-cyan/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 translate-x-1/2 translate-y-1/2 bg-neon-purple/20 rounded-full blur-3xl" />
       </div>
 
       {/* Main Content */}
       <main className="relative z-10">
-        {/* Combined Hero Section with Profile and Bio */}
-        <section className="pt-24 pb-12 px-4 md:px-8">
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold text-center mb-12"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <span className="bg-gradient-to-r from-neon-cyan via-neon-purple to-white bg-clip-text text-transparent">
-              Crafting Digital Experiences
-            </span>
-          </motion.h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Section */}
+          <section className="pt-24 pb-12">
+            <motion.h1
+              className="text-5xl md:text-7xl font-bold text-center mb-12"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <span className="bg-gradient-to-r from-neon-cyan via-neon-purple to-white bg-clip-text text-transparent">
+                Crafting Digital Experiences
+              </span>
+            </motion.h1>
 
-          <div className="max-w-7xl mx-auto bg-glassmorphic backdrop-blur-xl rounded-2xl p-8 border border-neon-cyan/20 shadow-cyan-glow overflow-hidden">
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Profile Section (Left) */}
-              <div className="md:col-span-1">
-                <motion.div
-                  className="relative mx-auto mb-6 w-48 h-48 rounded-full border-4 border-neon-cyan/30 overflow-hidden shadow-2xl"
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <img
-                    src="https://avatars.githubusercontent.com/u/116152141?v=4"
-                    alt={personalInfoData.name}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-
-                <div className="text-center">
-                  <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
-                    {personalInfoData.name}
-                  </h2>
-                  <p className="text-secondary-text mb-4">{personalInfoData.tagline}</p>
-
-                  {/* Email Button */}
+            <div className="max-w-7xl mx-auto bg-glassmorphic backdrop-blur-xl rounded-2xl p-8 border border-neon-cyan/20 shadow-cyan-glow overflow-hidden">
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Profile Section (Left) */}
+                <div className="md:col-span-1">
                   <motion.div
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-background-light/10 hover:bg-background-light/20 border border-neon-cyan/30 cursor-pointer mb-6"
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => navigator.clipboard.writeText(personalInfoData.email)}
+                    className="relative mx-auto mb-6 w-48 h-48 rounded-full border-4 border-neon-cyan/30 overflow-hidden shadow-2xl"
+                    animate={{
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
-                    <FiMail className="text-neon-cyan" />
-                    <span className="text-primary-text">{personalInfoData.email}</span>
+                    <img
+                      src="https://avatars.githubusercontent.com/u/116152141?v=4"
+                      alt={personalInfoData.name}
+                      className="w-full h-full object-cover"
+                    />
                   </motion.div>
 
-                  {/* Social Links */}
-                  <div className="flex justify-center gap-3 mt-4">
-                    {personalInfoData.social.map((social, index) => {
-                      const Icon = social.icon;
-                      return (
-                        <motion.a
-                          key={index}
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 flex items-center justify-center rounded-full bg-background-light/10 border border-neon-cyan/30 text-neon-cyan hover:text-white hover:bg-neon-cyan/70 transition-colors"
-                          whileHover={{ scale: 1.2, rotate: 5 }}
-                          whileTap={{ scale: 0.9 }}
-                          title={social.platform}
-                        >
-                          <Icon size={20} />
-                        </motion.a>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+                  <div className="text-center">
+                    <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
+                      {personalInfoData.name}
+                    </h2>
+                    <p className="text-secondary-text mb-4">{personalInfoData.tagline}</p>
 
-              {/* Bio Section (Right) */}
-              <div className="md:col-span-2">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 rounded-full bg-neon-cyan/10">
-                    <FiUser className="text-2xl text-neon-cyan" />
-                  </div>
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
-                    My Development Journey
-                  </h3>
-                </div>
-
-                <div className="space-y-4">
-                  {bioParagraphs.map((para, index) => (
-                    <AnimatePresence key={index}>
-                      {index < visibleBio && (
-                        <motion.p
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          className="text-primary-text pl-4 border-l-2 border-neon-cyan/30"
-                        >
-                          {para}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  ))}
-                </div>
-
-                {visibleBio < bioParagraphs.length && (
-                  <motion.div
-                    className="mt-6 text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <button
-                      onClick={() => setVisibleBio(bioParagraphs.length)}
-                      className="px-6 py-2 rounded-full bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/30 text-neon-cyan transition-all flex items-center gap-2 mx-auto"
+                    {/* Email Button */}
+                    <motion.div
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-background-light/10 hover:bg-background-light/20 border border-neon-cyan/30 cursor-pointer mb-6"
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => navigator.clipboard.writeText(personalInfoData.email)}
                     >
-                      <span>Reveal Full Story</span>
-                      <FiAward className="animate-bounce" />
-                    </button>
-                  </motion.div>
-                )}
+                      <FiMail className="text-neon-cyan" />
+                      <span className="text-primary-text">{personalInfoData.email}</span>
+                    </motion.div>
+
+                    {/* Social Links */}
+                    <div className="flex justify-center gap-3 mt-4">
+                      {personalInfoData.social.map((social, index) => {
+                        const Icon = social.icon;
+                        return (
+                          <motion.a
+                            key={index}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 flex items-center justify-center rounded-full bg-background-light/10 border border-neon-cyan/30 text-neon-cyan hover:text-white hover:bg-neon-cyan/70 transition-colors"
+                            whileHover={{ scale: 1.2, rotate: 5 }}
+                            whileTap={{ scale: 0.9 }}
+                            title={social.platform}
+                          >
+                            <Icon size={20} />
+                          </motion.a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bio Section (Right) */}
+                <div className="md:col-span-2">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-3 rounded-full bg-neon-cyan/10">
+                      <FiUser className="text-2xl text-neon-cyan" />
+                    </div>
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
+                      My Development Journey
+                    </h3>
+                  </div>
+
+                  <div className="space-y-4">
+                    {bioParagraphs.map((para, index) => (
+                      <AnimatePresence key={index}>
+                        {index < visibleBio && (
+                          <motion.p
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            className="text-primary-text pl-4 border-l-2 border-neon-cyan/30"
+                          >
+                            {para}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    ))}
+                  </div>
+
+                  {visibleBio < bioParagraphs.length && (
+                    <motion.div
+                      className="mt-6 text-center"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      <button
+                        onClick={() => setVisibleBio(bioParagraphs.length)}
+                        className="px-6 py-2 rounded-full bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/30 text-neon-cyan transition-all flex items-center gap-2 mx-auto"
+                      >
+                        <span>Reveal Full Story</span>
+                        <FiAward className="animate-bounce" />
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Education Section */}
-        <EducationSection />
+          {/* Education Section */}
+          <section className="py-20">
+            <EducationSection />
+          </section>
 
-        {/* Skills Section with Circular Progress */}
-        <SkillsSection />
+          {/* Skills Section */}
+          <section className="py-20">
+            <SkillsSection />
+          </section>
+        </div>
       </main>
-
-      {/* Global Styles */}
-      <style>{`
-        .bg-glassmorphic {
-          background: rgba(16, 24, 39, 0.6);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-        }
-
-        .shadow-cyan-glow {
-          box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
-        }
-
-        @keyframes bounce {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-        }
-
-        .animate-bounce {
-          animation: bounce 1.5s infinite;
-        }
-      `}</style>
     </div>
   );
 };
 
 export default AboutPage;
+
+/* Global Styles */
+<style>{`
+  .bg-glassmorphic {
+    background: rgba(16, 24, 39, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .shadow-cyan-glow {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .animate-bounce {
+    animation: bounce 1.5s infinite;
+  }
+`}</style>

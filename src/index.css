@@ -4,6 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Design tokens */
+  --spacing-unit: 0.25rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  
+  /* Animation durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  
+  /* Z-index layers */
+  --z-base: 0;
+  --z-above: 10;
+  --z-modal: 100;
+  --z-loader: 1000;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -15,40 +34,62 @@
 }
 
 @layer components {
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
   }
-  
-  .glassmorphism {
-    @apply bg-background-light/30 backdrop-blur-md border border-neon-cyan/20;
+
+  .section {
+    @apply py-16 md:py-24;
   }
-  
-  .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple font-medium text-primary-text rounded-md transition-all duration-300 hover:shadow-neon-cyan hover:scale-105;
+
+  .heading-1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold;
   }
-  
-  .btn-outline {
-    @apply px-6 py-3 border border-neon-cyan text-neon-cyan font-medium rounded-md transition-all duration-300 hover:bg-neon-cyan/10 hover:shadow-neon-cyan hover:scale-105;
+
+  .heading-2 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold;
   }
-  
-  .animate-fadeIn {
-    animation: fadeIn 1s ease-in-out;
+
+  .paragraph {
+    @apply text-base md:text-lg leading-relaxed;
   }
-  
-  .perspective-1000 {
-    perspective: 1000px;
+
+  .card {
+    @apply bg-background-light/30 backdrop-blur-md rounded-lg border border-neon-cyan/20 
+           transition-all duration-300 hover:border-neon-cyan/40 hover:shadow-lg;
   }
-  
-  .transform-3d-front {
-    transform: rotateY(0deg);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+
+  .input {
+    @apply w-full bg-background-light/40 backdrop-blur-sm text-primary-text 
+           border border-neon-cyan/30 rounded-md py-3 px-4 focus:outline-none
+           focus:border-neon-cyan focus:ring-2 focus:ring-neon-cyan/20;
   }
-  
-  .transform-3d-back {
-    transform: rotateY(180deg);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+
+  .button {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md
+           font-medium transition-all duration-300 disabled:opacity-50
+           disabled:cursor-not-allowed focus:outline-none focus:ring-2
+           focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .button-primary {
+    @apply button bg-gradient-to-r from-neon-cyan to-neon-purple text-white
+           hover:shadow-lg hover:scale-105 focus:ring-neon-cyan;
+  }
+
+  .button-outline {
+    @apply button border-2 border-neon-cyan text-neon-cyan
+           hover:bg-neon-cyan/10 focus:ring-neon-cyan;
+  }
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(var(--neon-cyan-rgb), 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--neon-cyan-rgb), 0.8);
   }
 }
 

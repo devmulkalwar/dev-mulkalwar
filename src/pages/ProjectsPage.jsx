@@ -55,8 +55,16 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className="min-h-screen py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <div className="min-h-screen bg-background py-24">
+      {/* Background elements */}
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-background/90" />
+      
+      <div className="fixed inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 translate-x-1/2 -translate-y-1/2 bg-neon-purple/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 -translate-x-1/2 translate-y-1/2 bg-neon-cyan/20 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <AnimatedSection direction="down">
           <h1 className="text-4xl md:text-5xl font-exo font-bold text-center mb-4">
             <span className="bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
@@ -69,8 +77,8 @@ const ProjectsPage = () => {
         </AnimatedSection>
 
         {/* Filter and Search Controls */}
-        <AnimatedSection direction="up" className="mb-12">
-          <div className="rounded-xl p-6 bg-background-light/10 backdrop-blur-sm border border-neon-cyan/20 shadow-lg shadow-neon-purple/5 max-w-4xl mx-auto">
+        <AnimatedSection direction="up" className="mb-12 max-w-4xl mx-auto">
+          <div className="rounded-xl p-6 bg-background-light/10 backdrop-blur-sm border border-neon-cyan/20 shadow-lg shadow-neon-purple/5">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Search */}
               <div className="relative group">

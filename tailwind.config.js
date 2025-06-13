@@ -21,13 +21,36 @@ export default {
         'exo': ['"Exo 2"', 'sans-serif'],
       },
       boxShadow: {
-        'neon-cyan': '0 0 5px #00FFFF, 0 0 20px #00FFFF',
-        'neon-purple': '0 0 5px #8A2BE2, 0 0 20px #8A2BE2',
+        'neon-sm': '0 0 5px var(--neon-cyan)',
+        'neon-md': '0 0 10px var(--neon-cyan)',
+        'neon-lg': '0 0 20px var(--neon-cyan)',
+        'neon-purple-sm': '0 0 5px var(--neon-purple)',
+        'neon-purple-md': '0 0 10px var(--neon-purple)',
+        'neon-purple-lg': '0 0 20px var(--neon-purple)',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+      },
+      screens: {
+        'xs': '475px',
+      },
+      zIndex: {
+        'base': 'var(--z-base)',
+        'above': 'var(--z-above)',
+        'modal': 'var(--z-modal)',
+        'loader': 'var(--z-loader)',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
+  ],
 }
