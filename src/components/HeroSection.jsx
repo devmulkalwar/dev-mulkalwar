@@ -45,7 +45,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100vh] w-full flex flex-col">
       {/* Background layers */}
       <div className="absolute inset-0 z-0">
         <HeroBackground />
@@ -54,7 +54,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10" />
 
       {/* Main content */}
-      <div className="relative z-20 w-full px-4 py-12 flex items-start justify-center">
+      <div className="flex-1 flex items-center justify-center px-4 py-12 relative z-20">
         <motion.div style={{ opacity, scale }} className="w-full max-w-4xl mx-auto">
           <div className="space-y-6 text-left">
             {/* Glitch text */}
@@ -154,17 +154,17 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - Fixed positioning */}
       {!isScrolledPastHero && (
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
           onClick={handleScrollDown}
         >
           <button 
-            className="p-3 rounded-full bg-background/50 backdrop-blur-sm border border-neon-cyan/30 
-                     hover:bg-background/80 transition-all cursor-pointer group"
+            className="p-3 rounded-full bg-background/80 backdrop-blur-sm border border-neon-cyan/30 
+                     hover:bg-background hover:border-neon-cyan transition-all duration-300 cursor-pointer group"
           >
             <FaChevronDown className="text-2xl text-neon-cyan group-hover:scale-110 transition-transform" />
           </button>

@@ -19,13 +19,13 @@ export const personalInfo = {
     facebook: "https://www.facebook.com/dev.mulkalwar",
     leetcode: "https://leetcode.com/u/devmulkalwar95/"
   },
-  bio: `🚀 Passionate Web Developer | MERN Stack Enthusiast
+  bio: `Passionate Web Developer | MERN Stack Enthusiast
 
 I’m a dedicated web developer driven by the mission to create impactful digital solutions. My journey began with a fascination for how technology solves real-world problems, evolving into a passion for building scalable, user-friendly applications.
 
 Specializing in the MERN stack (MongoDB, Express.js, React.js, Node.js), I enjoy working across both frontend and backend to bring ideas to life. I thrive on learning new technologies, optimizing performance, and designing intuitive experiences.
 
-Beyond coding, I explore new tools, contribute to open-source projects, and continuously seek growth. Let’s collaborate to build something meaningful! 🚀`,
+Beyond coding, I explore new tools, contribute to open-source projects, and continuously seek growth. Let’s collaborate to build something meaningful! `,
   education: [
     {
       degree: "BCA",
