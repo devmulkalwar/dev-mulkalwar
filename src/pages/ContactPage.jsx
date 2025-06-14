@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import AnimatedSection from '../components/AnimatedSection';
 import SocialIcons from '../components/SocialIcons';
 import { personalInfo } from '../data/portfolioData.jsx';
+import emailjs from '@emailjs/browser';
+import { emailConfig } from '../config/emailjs';
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const form = useRef();
+  const [formData, setFormData] = useState({
+    user_name: '',
+    user_email: '',
+    subject: '',
+    message: ''
+  });
   const [status, setStatus] = useState({ isSubmitting: false, success: false, error: '' });
   const [touched, setTouched] = useState({});
 
@@ -16,8 +24,8 @@ const ContactPage = () => {
 
   const getFieldError = (field) => {
     if (!touched[field]) return '';
-    if (!formData[field]) return `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
-    if (field === 'email' && !/\S+@\S+\.\S+/.test(formData.email)) return 'Valid email is required';
+    if (!formData[field]) return `${field.replace('user_', '').charAt(0).toUpperCase() + field.slice(field.indexOf('_') + 1)} is required`;
+    if (field === 'user_email' && !/\S+@\S+\.\S+/.test(formData.user_email)) return 'Valid email is required';
     return '';
   };
 
@@ -26,13 +34,12 @@ const ContactPage = () => {
   };
 
   const validateForm = () => {
-    // Basic client-side validation
-    const { name, email, subject, message } = formData;
-    if (!name || !email || !subject || !message) {
+    const { user_name, user_email, subject, message } = formData;
+    if (!user_name || !user_email || !subject || !message) {
       setStatus({ ...status, error: 'All fields are required.' });
       return false;
     }
-    if (!/\S+@\S+\.\S+/.test(email)) {
+    if (!/\S+@\S+\.\S+/.test(user_email)) {
       setStatus({ ...status, error: 'Email address is invalid.' });
       return false;
     }
@@ -47,11 +54,18 @@ const ContactPage = () => {
     setStatus({ isSubmitting: true, success: false, error: '' });
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await emailjs.sendForm(
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        form.current,
+        emailConfig.publicKey
+      );
+
       setStatus({ isSubmitting: false, success: true, error: '' });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ user_name: '', user_email: '', subject: '', message: '' });
+      setTouched({});
     } catch (error) {
+      console.error('Email error:', error);
       setStatus({ 
         isSubmitting: false, 
         success: false, 
@@ -67,8 +81,8 @@ const ContactPage = () => {
   ];
 
   const formFields = [
-    { name: 'name', label: 'Name', type: 'text' },
-    { name: 'email', label: 'Email', type: 'email' }
+    { name: 'user_name', label: 'Name', type: 'text', placeholder: 'Your name' },
+    { name: 'user_email', label: 'Email', type: 'email', placeholder: 'Your email' }
   ];
 
   return (
@@ -143,7 +157,12 @@ const ContactPage = () => {
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  <form 
+                    ref={form} 
+                    onSubmit={handleSubmit} 
+                    className="space-y-6" 
+                    noValidate
+                  >
                     <div className="grid md:grid-cols-2 gap-6">
                       {formFields.map((field) => (
                         <div key={field.name} className="form-group">
@@ -154,16 +173,15 @@ const ContactPage = () => {
                             type={field.type}
                             id={field.name}
                             name={field.name}
-                            value={formData[field.name]}
+                            placeholder={field.placeholder}
+                            value={formData[field.name] || ''}
                             onChange={handleChange}
                             onBlur={handleBlur}
                             aria-invalid={!!getFieldError(field.name)}
                             aria-describedby={getFieldError(field.name) ? `${field.name}-error` : undefined}
                             className="w-full px-4 py-3 rounded-lg bg-background-light/20 border border-neon-cyan/30
                                      text-primary-text placeholder-secondary-text/50 transition-colors
-                                     focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan focus:outline-none
-                                     disabled:opacity-50 disabled:cursor-not-allowed
-                                     aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-500"
+                                     focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan focus:outline-none"
                           />
                           {getFieldError(field.name) && (
                             <p id={`${field.name}-error`} className="mt-1.5 text-sm text-red-500">
@@ -177,38 +195,38 @@ const ContactPage = () => {
                     {/* Subject field */}
                     <div>
                       <label htmlFor="subject" className="block text-sm font-medium text-secondary-text mb-2">
-                        Subject
+                        Subject <span className="text-neon-cyan">*</span>
                       </label>
                       <input
                         type="text"
                         id="subject"
                         name="subject"
-                        required
-                        value={formData.subject}
+                        placeholder="What's this about?"
+                        value={formData.subject || ''}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="w-full px-4 py-3 rounded-lg bg-background-light/20 border border-neon-cyan/30 
                                  text-primary-text focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan 
                                  transition-colors"
-                        placeholder="What's this about?"
                       />
                     </div>
 
                     {/* Message field */}
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-secondary-text mb-2">
-                        Message
+                        Message <span className="text-neon-cyan">*</span>
                       </label>
                       <textarea
                         id="message"
                         name="message"
-                        required
-                        rows="6"
-                        value={formData.message}
+                        placeholder="Your message here..."
+                        value={formData.message || ''}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        rows="6"
                         className="w-full px-4 py-3 rounded-lg bg-background-light/20 border border-neon-cyan/30 
                                  text-primary-text focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan 
                                  transition-colors resize-none"
-                        placeholder="Your message here..."
                       />
                     </div>
 
