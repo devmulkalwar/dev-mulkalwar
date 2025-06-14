@@ -54,6 +54,9 @@ const ProjectsPage = () => {
     setSortBy('newest');
   };
 
+  const selectClassName = "w-full bg-background-light/30 text-primary-text border border-neon-cyan/30 rounded-lg py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 appearance-none transition-all cursor-pointer hover:border-neon-cyan";
+  const optionClassName = "bg-background text-primary-text hover:bg-background-light/50";
+
   return (
     <div className="min-h-screen bg-background py-24">
       {/* Background elements */}
@@ -102,23 +105,25 @@ const ProjectsPage = () => {
 
               {/* Filter by Technology */}
               <div className="relative">
-                <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neon-purple" />
+                <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neon-cyan" />
                 <select
-                  className="w-full bg-background-light/30 text-primary-text border border-neon-purple/30 rounded-lg py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-neon-purple/50 appearance-none transition-all cursor-pointer"
+                  className={selectClassName}
                   value={filterTech}
                   onChange={(e) => setFilterTech(e.target.value)}
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                  }}
                 >
-                  <option value="">All Technologies</option>
+                  <option value="" className={optionClassName}>All Technologies</option>
                   {allTechnologies.map((tech) => (
-                    <option key={tech} value={tech}>
+                    <option key={tech} value={tech} className={optionClassName}>
                       {tech}
                     </option>
                   ))}
                 </select>
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6 6L11 1" stroke="#8B5CF6" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-neon-cyan">
+                  <FaSort size={12} />
                 </div>
               </div>
 
@@ -126,19 +131,21 @@ const ProjectsPage = () => {
               <div className="relative">
                 <FaSort className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neon-cyan" />
                 <select
-                  className="w-full bg-background-light/30 text-primary-text border border-neon-cyan/30 rounded-lg py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50 appearance-none transition-all cursor-pointer"
+                  className={selectClassName}
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                  }}
                 >
-                  <option value="newest">Newest First</option>
-                  <option value="oldest">Oldest First</option>
-                  <option value="a-z">A-Z</option>
-                  <option value="z-a">Z-A</option>
+                  <option value="newest" className={optionClassName}>Newest First</option>
+                  <option value="oldest" className={optionClassName}>Oldest First</option>
+                  <option value="a-z" className={optionClassName}>A-Z</option>
+                  <option value="z-a" className={optionClassName}>Z-A</option>
                 </select>
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L6 6L11 1" stroke="#06B6D4" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-neon-cyan">
+                  <FaSort size={12} />
                 </div>
               </div>
             </div>
@@ -245,3 +252,21 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+
+// Add these styles to your global CSS or within a style tag
+const styles = `
+  select option {
+    background-color: rgb(17, 24, 39);
+    color: rgb(229, 231, 235);
+    padding: 8px;
+  }
+
+  select option:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+  }
+
+  select:focus option:checked {
+    background-color: rgba(0, 255, 255, 0.2);
+    color: rgb(0, 255, 255);
+  }
+`;
